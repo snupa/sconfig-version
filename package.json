@@ -1,0 +1,14 @@
+{
+  "name": "sconfig-version",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "thorin": "^1.x"
+  },
+  "entry": "index.js",
+  "engines": {
+    "node": ">= 8.x"
+  },
+  "license": "MIT",
+  "description": "SConfig.io package configuratior",
+  "repository": "https://github.com/snupa/sconfig-version"
+}
