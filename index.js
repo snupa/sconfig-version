@@ -122,3 +122,30 @@ module.exports.argv = () => {
   }
   return versionData;
 };
+
+/**
+ * Reads the configuration data of the given package name
+ * Options:
+ * --token={sconfig token}
+ * --package-name={the package name to read.}
+ * */
+module.exports.read = async (data) => {
+  if (typeof data !== 'object' || !data) {
+    data = module.exports.argv();
+  }
+  if (!data.token) {
+    throw thorin.error('DATA.TOKEN', 'Missing authentication token');
+  }
+  if (!data.packageName) {
+    throw thorin.error('DATA.NAME', 'Missing package name');
+  }
+  if (!data.root) data.root = process.cwd();
+  const fetch = require(path.normalize(data.root + '/node_modules/thorin/fetch'));
+  const versionUrl = CONFIG_URL + data.packageName;
+  return await fetch(versionUrl, {
+    method: 'GET',
+    headers: {
+      Authorization: data.token
+    }
+  }).then((res) => res.json());
+};
